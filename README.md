@@ -42,5 +42,37 @@ Dataset schama: https://support.google.com/analytics/answer/3437719?hl=en
 | hits\.product\.productSKU            | STRING     | Product SKU\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | hits\.product\.v2ProductName         | STRING     | Product Name\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 ## 5. Data Processing & Exploratory Data Analysis
+~~~~sql
+SELECT COUNT(fullVisitorId) row_num,
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
+~~~~
+| row\_num |
+|----------|
+| 467260   |
+
+**UNNEST hits and products**
+~~~~sql
+SELECT date, 
+fullVisitorId,
+eCommerceAction.action_type,
+product.v2ProductName,
+product.productRevenue,
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
+UNNEST(hits) AS hits,
+UNNEST(hits.product) as product
+~~~~
+
+| date     | fullVisitorId       | action_type | v2ProductName                         | productRevenue |
+|----------|---------------------|-------------|---------------------------------------|----------------|
+| 20170712 | 4080810487624198636 | 1           | YouTube Custom Decals                 |                |
+| 20170712 | 4080810487624198636 | 2           | YouTube Custom Decals                 |                |
+| 20170712 | 7291695423333449793 | 1           | Keyboard DOT Sticker                  |                |
+| 20170712 | 7291695423333449793 | 2           | Keyboard DOT Sticker                  |                |
+| 20170712 | 3153380067864919818 | 2           | Google Baby Essentials Set            |                |
+| 20170712 | 3153380067864919818 | 1           | Google Baby Essentials Set            |                |
+| 20170712 | 5615263059272956391 | 0           | Android Lunch Kit                     |                |
+| 20170712 | 5615263059272956391 | 0           | Android Rise 14 oz Mug                |                |
+| 20170712 | 5615263059272956391 | 0           | Android Sticker Sheet Ultra Removable |                |
+| 20170712 | 5615263059272956391 | 0           | Windup Android                        |                |
 ## 6. Ask questions and solve it
 ## 7. Conclusion
