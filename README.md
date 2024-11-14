@@ -40,6 +40,7 @@ The eCommerce dataset is stored in a public Google BigQuery dataset. To access t
 | hits\.product\.productRevenue        | INTEGER    | The revenue of the product, expressed as the value passed to Analytics multiplied by 10^6 \(e\.g\., 2\.40 would be given as 2400000\)\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | hits\.product\.productSKU            | STRING     | Product SKU\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | hits\.product\.v2ProductName         | STRING     | Product Name\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+
 More detail about schema: https://support.google.com/analytics/answer/3437719?hl=en
 ## 5. Data Processing & Exploratory Data Analysis
 ~~~~sql
@@ -108,6 +109,7 @@ GROUP BY month
 | 201701 | 64694 | 257708    | 713           |
 | 201702 | 62192 | 233373    | 733           |
 | 201703 | 69931 | 259522    | 993           |
+
 **6.2 Bounce rate per traffic source in July 2017**
 ~~~~sql
 SELECT trafficSource.source AS source
@@ -120,104 +122,105 @@ GROUP BY source
 ORDER BY total_visits desc
 ~~~~
 **RESULT**
-| source                                                            | total_visits | total_no_of_bounces | bounce_rate |
-| ----------------------------------------------------------------- | ------------ | ------------------- | ----------- |
-| google                                                            | 38400        | 19798               | 51.557      |
-| (direct)                                                          | 19891        | 8606                | 43.266      |
-| [youtube.com](http://youtube.com)                                 | 6351         | 4238                | 66.73       |
-| [analytics.google.com](http://analytics.google.com)               | 1972         | 1064                | 53.955      |
-| Partners                                                          | 1788         | 936                 | 52.349      |
-| [m.facebook.com](http://m.facebook.com)                           | 669          | 430                 | 64.275      |
-| [google.com](http://google.com)                                   | 368          | 183                 | 49.728      |
-| dfa                                                               | 302          | 124                 | 41.06       |
-| [sites.google.com](http://sites.google.com)                       | 230          | 97                  | 42.174      |
-| [facebook.com](http://facebook.com)                               | 191          | 102                 | 53.403      |
-| [reddit.com](http://reddit.com)                                   | 189          | 54                  | 28.571      |
-| [qiita.com](http://qiita.com)                                     | 146          | 72                  | 49.315      |
-| baidu                                                             | 140          | 84                  | 60          |
-| [quora.com](http://quora.com)                                     | 140          | 70                  | 50          |
-| bing                                                              | 111          | 54                  | 48.649      |
-| [mail.google.com](http://mail.google.com)                         | 101          | 25                  | 24.752      |
-| yahoo                                                             | 100          | 41                  | 41          |
-| [blog.golang.org](http://blog.golang.org)                         | 65           | 19                  | 29.231      |
-| [l.facebook.com](http://l.facebook.com)                           | 51           | 45                  | 88.235      |
-| [groups.google.com](http://groups.google.com)                     | 50           | 22                  | 44          |
-| [t.co](http://t.co)                                               | 38           | 27                  | 71.053      |
-| [google.co.jp](http://google.co.jp)                               | 36           | 25                  | 69.444      |
-| [m.youtube.com](http://m.youtube.com)                             | 34           | 22                  | 64.706      |
-| [dealspotr.com](http://dealspotr.com)                             | 26           | 12                  | 46.154      |
-| [productforums.google.com](http://productforums.google.com)       | 25           | 21                  | 84          |
-| [support.google.com](http://support.google.com)                   | 24           | 16                  | 66.667      |
-| ask                                                               | 24           | 16                  | 66.667      |
-| [int.search.tb.ask.com](http://int.search.tb.ask.com)             | 23           | 17                  | 73.913      |
-| [optimize.google.com](http://optimize.google.com)                 | 21           | 10                  | 47.619      |
-| [docs.google.com](http://docs.google.com)                         | 20           | 8                   | 40          |
-| [lm.facebook.com](http://lm.facebook.com)                         | 18           | 9                   | 50          |
-| [l.messenger.com](http://l.messenger.com)                         | 17           | 6                   | 35.294      |
-| [adwords.google.com](http://adwords.google.com)                   | 16           | 7                   | 43.75       |
-| [duckduckgo.com](http://duckduckgo.com)                           | 16           | 14                  | 87.5        |
-| [google.co.uk](http://google.co.uk)                               | 15           | 7                   | 46.667      |
-| [sashihara.jp](http://sashihara.jp)                               | 14           | 8                   | 57.143      |
-| [lunametrics.com](http://lunametrics.com)                         | 13           | 8                   | 61.538      |
-| [search.mysearch.com](http://search.mysearch.com)                 | 12           | 11                  | 91.667      |
-| [outlook.live.com](http://outlook.live.com)                       | 10           | 7                   | 70          |
-| [tw.search.yahoo.com](http://tw.search.yahoo.com)                 | 10           | 8                   | 80          |
-| [phandroid.com](http://phandroid.com)                             | 9            | 7                   | 77.778      |
-| [connect.googleforwork.com](http://connect.googleforwork.com)     | 8            | 5                   | 62.5        |
-| [plus.google.com](http://plus.google.com)                         | 8            | 2                   | 25          |
-| [m.yz.sm.cn](http://m.yz.sm.cn)                                   | 7            | 5                   | 71.429      |
-| [google.co.in](http://google.co.in)                               | 6            | 3                   | 50          |
-| [search.xfinity.com](http://search.xfinity.com)                   | 6            | 6                   | 100         |
-| [google.ru](http://google.ru)                                     | 5            | 1                   | 20          |
-| [s0.2mdn.net](http://s0.2mdn.net)                                 | 5            | 3                   | 60          |
-| [hangouts.google.com](http://hangouts.google.com)                 | 5            | 1                   | 20          |
-| [online-metrics.com](http://online-metrics.com)                   | 5            | 2                   | 40          |
-| [m.sogou.com](http://m.sogou.com)                                 | 4            | 3                   | 75          |
-| [away.vk.com](http://away.vk.com)                                 | 4            | 3                   | 75          |
-| [in.search.yahoo.com](http://in.search.yahoo.com)                 | 4            | 2                   | 50          |
-| [googleads.g.doubleclick.net](http://googleads.g.doubleclick.net) | 4            | 1                   | 25          |
-| [getpocket.com](http://getpocket.com)                             | 3            |                     |             |
-| [siliconvalley.about.com](http://siliconvalley.about.com)         | 3            | 2                   | 66.667      |
-| [m.baidu.com](http://m.baidu.com)                                 | 3            | 2                   | 66.667      |
-| [google.it](http://google.it)                                     | 2            | 1                   | 50          |
-| [google.co.th](http://google.co.th)                               | 2            | 1                   | 50          |
-| [wap.sogou.com](http://wap.sogou.com)                             | 2            | 2                   | 100         |
-| [msn.com](http://msn.com)                                         | 2            | 1                   | 50          |
-| [calendar.google.com](http://calendar.google.com)                 | 2            | 1                   | 50          |
-| [amp.reddit.com](http://amp.reddit.com)                           | 2            | 1                   | 50          |
-| [uk.search.yahoo.com](http://uk.search.yahoo.com)                 | 2            | 1                   | 50          |
-| [search.1and1.com](http://search.1and1.com)                       | 2            | 2                   | 100         |
-| [google.cl](http://google.cl)                                     | 2            | 1                   | 50          |
-| [moodle.aurora.edu](http://moodle.aurora.edu)                     | 2            | 2                   | 100         |
-| [au.search.yahoo.com](http://au.search.yahoo.com)                 | 2            | 2                   | 100         |
-| [m.sp.sm.cn](http://m.sp.sm.cn)                                   | 2            | 2                   | 100         |
-| [plus.url.google.com](http://plus.url.google.com)                 | 2            |                     |             |
-| [myactivity.google.com](http://myactivity.google.com)             | 2            | 1                   | 50          |
-| [github.com](http://github.com)                                   | 2            | 2                   | 100         |
-| [centrum.cz](http://centrum.cz)                                   | 2            | 2                   | 100         |
-| [google.nl](http://google.nl)                                     | 1            |                     |             |
-| [google.es](http://google.es)                                     | 1            | 1                   | 100         |
-| [kidrex.org](http://kidrex.org)                                   | 1            | 1                   | 100         |
-| [newclasses.nyu.edu](http://newclasses.nyu.edu)                   | 1            |                     |             |
-| [google.ca](http://google.ca)                                     | 1            |                     |             |
-| [kik.com](http://kik.com)                                         | 1            | 1                   | 100         |
-| [gophergala.com](http://gophergala.com)                           | 1            | 1                   | 100         |
-| aol                                                               | 1            |                     |             |
-| [earth.google.com](http://earth.google.com)                       | 1            |                     |             |
-| [malaysia.search.yahoo.com](http://malaysia.search.yahoo.com)     | 1            | 1                   | 100         |
-| [google.com.br](http://google.com.br)                             | 1            |                     |             |
-| [suche.t-online.de](http://suche.t-online.de)                     | 1            | 1                   | 100         |
-| [google.bg](http://google.bg)                                     | 1            | 1                   | 100         |
-| [news.ycombinator.com](http://news.ycombinator.com)               | 1            | 1                   | 100         |
-| [online.fullsail.edu](http://online.fullsail.edu)                 | 1            | 1                   | 100         |
-| [it.pinterest.com](http://it.pinterest.com)                       | 1            | 1                   | 100         |
-| [arstechnica.com](http://arstechnica.com)                         | 1            |                     |             |
-| [es.search.yahoo.com](http://es.search.yahoo.com)                 | 1            | 1                   | 100         |
-| [web.facebook.com](http://web.facebook.com)                       | 1            | 1                   | 100         |
-| [ph.search.yahoo.com](http://ph.search.yahoo.com)                 | 1            |                     |             |
-| [web.mail.comcast.net](http://web.mail.comcast.net)               | 1            | 1                   | 100         |
-| [search.tb.ask.com](http://search.tb.ask.com)                     | 1            |                     |             |
-| [images.google.com.au](http://images.google.com.au)               | 1            | 1                   | 100         |
-| [mx.search.yahoo.com](http://mx.search.yahoo.com)                 | 1            | 1                   | 100         |
+| Source                      | Total visits | Total no of bounces | Bounce rate |
+| :-------------------------- | :----------- | :------------------ | :---------- |
+| google                      | 38400        | 19798               | 51.557      |
+| (direct)                    | 19891        | 8606                | 43.266      |
+| youtube.com                 | 6351         | 4238                | 66.73       |
+| analytics.google.com        | 1972         | 1064                | 53.955      |
+| Partners                    | 1788         | 936                 | 52.349      |
+| m.facebook.com              | 669          | 430                 | 64.275      |
+| google.com                  | 368          | 183                 | 49.728      |
+| dfa                         | 302          | 124                 | 41.06       |
+| sites.google.com            | 230          | 97                  | 42.174      |
+| facebook.com                | 191          | 102                 | 53.403      |
+| reddit.com                  | 189          | 54                  | 28.571      |
+| qiita.com                   | 146          | 72                  | 49.315      |
+| baidu                       | 140          | 84                  | 60          |
+| quora.com                   | 140          | 70                  | 50          |
+| bing                        | 111          | 54                  | 48.649      |
+| mail.google.com             | 101          | 25                  | 24.752      |
+| yahoo                       | 100          | 41                  | 41          |
+| blog.golang.org             | 65           | 19                  | 29.231      |
+| l.facebook.com              | 51           | 45                  | 88.235      |
+| groups.google.com           | 50           | 22                  | 44          |
+| t.co                        | 38           | 27                  | 71.053      |
+| google.co.jp                | 36           | 25                  | 69.444      |
+| m.youtube.com               | 34           | 22                  | 64.706      |
+| dealspotr.com               | 26           | 12                  | 46.154      |
+| productforums.google.com    | 25           | 21                  | 84          |
+| support.google.com          | 24           | 16                  | 66.667      |
+| ask                         | 24           | 16                  | 66.667      |
+| int.search.tb.ask.com       | 23           | 17                  | 73.913      |
+| optimize.google.com         | 21           | 10                  | 47.619      |
+| docs.google.com             | 20           | 8                   | 40          |
+| lm.facebook.com             | 18           | 9                   | 50          |
+| l.messenger.com             | 17           | 6                   | 35.294      |
+| adwords.google.com          | 16           | 7                   | 43.75       |
+| duckduckgo.com              | 16           | 14                  | 87.5        |
+| google.co.uk                | 15           | 7                   | 46.667      |
+| sashihara.jp                | 14           | 8                   | 57.143      |
+| lunametrics.com             | 13           | 8                   | 61.538      |
+| search.mysearch.com         | 12           | 11                  | 91.667      |
+| outlook.live.com            | 10           | 7                   | 70          |
+| tw.search.yahoo.com         | 10           | 8                   | 80          |
+| phandroid.com               | 9            | 7                   | 77.778      |
+| connect.googleforwork.com   | 8            | 5                   | 62.5        |
+| plus.google.com             | 8            | 2                   | 25          |
+| m.yz.sm.cn                  | 7            | 5                   | 71.429      |
+| google.co.in                | 6            | 3                   | 50          |
+| search.xfinity.com          | 6            | 6                   | 100         |
+| google.ru                   | 5            | 1                   | 20          |
+| s0.2mdn.net                 | 5            | 3                   | 60          |
+| hangouts.google.com         | 5            | 1                   | 20          |
+| online-metrics.com          | 5            | 2                   | 40          |
+| m.sogou.com                 | 4            | 3                   | 75          |
+| away.vk.com                 | 4            | 3                   | 75          |
+| in.search.yahoo.com         | 4            | 2                   | 50          |
+| googleads.g.doubleclick.net | 4            | 1                   | 25          |
+| getpocket.com               | 3            |                     |             |
+| siliconvalley.about.com     | 3            | 2                   | 66.667      |
+| m.baidu.com                 | 3            | 2                   | 66.667      |
+| google.it                   | 2            | 1                   | 50          |
+| google.co.th                | 2            | 1                   | 50          |
+| wap.sogou.com               | 2            | 2                   | 100         |
+| msn.com                     | 2            | 1                   | 50          |
+| calendar.google.com         | 2            | 1                   | 50          |
+| amp.reddit.com              | 2            | 1                   | 50          |
+| uk.search.yahoo.com         | 2            | 1                   | 50          |
+| search.1and1.com            | 2            | 2                   | 100         |
+| google.cl                   | 2            | 1                   | 50          |
+| moodle.aurora.edu           | 2            | 2                   | 100         |
+| au.search.yahoo.com         | 2            | 2                   | 100         |
+| m.sp.sm.cn                  | 2            | 2                   | 100         |
+| plus.url.google.com         | 2            |                     |             |
+| myactivity.google.com       | 2            | 1                   | 50          |
+| github.com                  | 2            | 2                   | 100         |
+| centrum.cz                  | 2            | 2                   | 100         |
+| google.nl                   | 1            |                     |             |
+| google.es                   | 1            | 1                   | 100         |
+| kidrex.org                  | 1            | 1                   | 100         |
+| newclasses.nyu.edu          | 1            |                     |             |
+| google.ca                   | 1            |                     |             |
+| kik.com                     | 1            | 1                   | 100         |
+| gophergala.com              | 1            | 1                   | 100         |
+| aol                         | 1            |                     |             |
+| earth.google.com            | 1            |                     |             |
+| malaysia.search.yahoo.com   | 1            | 1                   | 100         |
+| google.com.br               | 1            |                     |             |
+| suche.t-online.de           | 1            | 1                   | 100         |
+| google.bg                   | 1            | 1                   | 100         |
+| news.ycombinator.com        | 1            | 1                   | 100         |
+| online.fullsail.edu         | 1            | 1                   | 100         |
+| it.pinterest.com            | 1            | 1                   | 100         |
+| arstechnica.com             | 1            |                     |             |
+| es.search.yahoo.com         | 1            | 1                   | 100         |
+| web.facebook.com            | 1            | 1                   | 100         |
+| ph.search.yahoo.com         | 1            |                     |             |
+| web.mail.comcast.net        | 1            | 1                   | 100         |
+| search.tb.ask.com           | 1            |                     |             |
+| images.google.com.au        | 1            | 1                   | 100         |
+| mx.search.yahoo.com         | 1            | 1                   | 100         |
+
 
 ## 7. Conclusion
