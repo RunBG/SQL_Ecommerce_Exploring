@@ -75,4 +75,36 @@ UNNEST(hits.product) as product
 | 20170712 | 5615263059272956391 | 0           | Android Sticker Sheet Ultra Removable |                |
 | 20170712 | 5615263059272956391 | 0           | Windup Android                        |                |
 ## 6. Ask questions and solve it
+**6.1 Calculate total visits, pageview, transaction, and revenue for Jan, Feb, and March 2017**
+~~~~sql
+SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+COUNT(totals.visits) AS visit,
+SUM(totals.pageviews) AS pageviews,
+SUM(totals.transactions) AS transactions
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
+WHERE _table_suffix BETWEEN '0101' AND '0131'
+GROUP BY month
+UNION ALL
+SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+COUNT(totals.visits) AS visit,
+SUM(totals.pageviews) AS pageviews,
+SUM(totals.transactions) AS transactions
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
+WHERE _table_suffix BETWEEN '0201' AND '0229'
+GROUP BY month
+UNION ALL
+SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+COUNT(totals.visits) AS visit,
+SUM(totals.pageviews) AS pageviews,
+SUM(totals.transactions) AS transactions
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
+WHERE _table_suffix BETWEEN '0301' AND '0331'
+GROUP BY month
+~~~~
+**RESULT**
+| month  | visit | pageviews | transactions  |
+|--------|-------|-----------|---------------|
+| 201701 | 64694 | 257708    | 713           |
+| 201702 | 62192 | 233373    | 733           |
+| 201703 | 69931 | 259522    | 993           |
 ## 7. Conclusion
