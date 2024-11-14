@@ -23,7 +23,7 @@ The eCommerce dataset is stored in a public Google BigQuery dataset. To access t
 ## 4. Read and explain dataset
 Dataset schama: https://support.google.com/analytics/answer/3437719?hl=en
 | Field Name           | Data Type | Description                                                                                                                                                           |
-|:--------------------:|:---------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|----------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | fullVisitorId        | STRING    | The unique visitor ID.                                                                                                                                                |
 | date                 | STRING    | The date of the session in YYYYMMDD format.                                                                                                                           |
 | totals               | RECORD    | This section contains aggregate values across the session.                                                                                                            |
