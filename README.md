@@ -1,9 +1,9 @@
 # SQL_Ecommerce_Exploring
 
 ## 1. Introduction and Motivation
-The eCommerce dataset is stored in a public Google BigQuery dataset. This dataset contains information about user sessions on a website collected from Google Analytics in 2017.
+The eCommerce dataset is publicly available on Google BigQuery and contains information about user sessions on a website collected from Google Analytics in 2017.
 
-Based on the eCommerce dataset, the author perform queries to analyze website activity in 2017, such as calculating bounce rate, identifying days with the highest revenue, analyzing user behavior on pages, and various other types of analysis. This project aims to have an outlook on the business situation, marketing activity efficiency analyzing the products.
+The author utilizes this dataset to perform queries analyzing website activity during 2017. These analyses include calculating bounce rates, identifying days with the highest revenue, examining user behavior on pages, and conducting various other types of assessments. The project aims to provide insights into the business performance, marketing efficiency, and product analysis.
 
 To query and work with this dataset, the author uses the Google BigQuery tool to write and execute SQL queries.
 ## 2. The goal of creating this project
@@ -13,14 +13,7 @@ To query and work with this dataset, the author uses the Google BigQuery tool to
 - Transactions analysis
 - Type purchaser analysis
 - Bounce rate analysis
-## 3. Import raw data
-The eCommerce dataset is stored in a public Google BigQuery dataset. To access the dataset, follow these steps:
-- Log in to your Google Cloud Platform account and create a new project.
-- Navigate to the BigQuery console and select your newly created project.
-- Select "Add Data" in the navigation panel and then "Search a project".
-- Enter the project ID **"bigquery-public-data.google_analytics_sample.ga_sessions"** and click "Enter".
-- Click on the **"ga_sessions_"** table to open it.
-## 4. Read and explain dataset
+## 3. Read and explain dataset
 | Field Name                           | Data Type  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | fullVisitorId                        | STRING     | The unique visitor ID\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -42,7 +35,7 @@ The eCommerce dataset is stored in a public Google BigQuery dataset. To access t
 | hits\.product\.v2ProductName         | STRING     | Product Name\.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 More detail about schema: https://support.google.com/analytics/answer/3437719?hl=en
-## 5. Data Processing & Exploratory Data Analysis
+## 4. Data Processing & Exploratory Data Analysis
 ~~~~sql
 SELECT
       COUNT(fullVisitorId) row_num,
@@ -78,8 +71,8 @@ UNNEST(hits.product) as product
 | 20170712 | 5615263059272956391 | 0           | Android Sticker Sheet Ultra Removable |                |
 | 20170712 | 5615263059272956391 | 0           | Windup Android                        |                |
 | ... | ... |...|...|...|
-## 6. Ask questions and solve it
-**6.1 Calculate total visits, pageview, transaction, and revenue for Jan, Feb, and March 2017**
+## 5. Ask questions and solve it
+**5.1 Calculate total visits, pageview, transaction, and revenue for Jan, Feb, and March 2017**
 ~~~~sql
 SELECT
       FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
@@ -115,7 +108,7 @@ GROUP BY month
 | 201702 | 62192 | 233373    | 733           |
 | 201703 | 69931 | 259522    | 993           |
 
-**6.2 Bounce rate per traffic source in July 2017**
+**5.2 Bounce rate per traffic source in July 2017**
 ~~~~sql
 SELECT
     trafficSource.source AS source,
@@ -158,7 +151,7 @@ ORDER BY total_visits DESC;
 | ...                         | ...          | ...                 | ...         |
 
 
-**6.3 Revenue by traffic source by week, by month in June 2017**
+**5.3 Revenue by traffic source by week, by month in June 2017**
 
 ~~~~sql
 WITH 
@@ -213,7 +206,7 @@ ORDER BY source, time_type
 
 
 
-**6.4 Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017**
+**5.4 Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017**
 ~~~~sql
 -- Count pageviews and number of purchaser 2017
 WITH
@@ -255,7 +248,7 @@ ORDER BY p.month
 | 201706 | 94.02050113895217      | 316.86558846341671         |
 | 201707 | 124.23755186721992     | 334.05655979568053         |
 
-**6.5 Average amount of money spent per session. Only include purchaser data in July 2017**
+**5.5 Average amount of money spent per session. Only include purchaser data in July 2017**
 ~~~~sql
 WITH count_transaction_per_user AS(
   SELECT
@@ -278,7 +271,7 @@ FROM count_transaction_per_user
 | ------ | ------------------------------- |
 | 201707 | 4.163900415                     |
 
-**6.6 Average amount of money spent per session. Only include purchaser data in July 2017**
+**5.6 Average amount of money spent per session. Only include purchaser data in July 2017**
 
 ~~~~sql
 WITH cal_total_revenue AS(
@@ -302,7 +295,7 @@ FROM cal_total_revenue
 | ------ | ----------------------------- |
 | 201707 | 43.85                         |
 
-**6.7 Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.**
+**5.7 Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.**
 
 ~~~~sql
 SELECT 
@@ -337,42 +330,46 @@ ORDER BY quantity DESC
 | Red Shine 15 oz Mug                              | 2        |
 | ...                                              | ...      |
 
-**6.8 Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase.
+**5.8 Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase.
 Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level.**
 
 ~~~~sql
-WITH number_productviews_tb as(SELECT 
+WITH
+      number_productviews_tb as(
+SELECT 
        FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
-      ,sum(case when eCommerceAction.action_type = '2' then 1 else 0 end) as num_product_view
+      ,sum(case when eCommerceAction.action_type = '2' then 1 else 0 end) AS num_product_view
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
 UNNEST (hits) hits
 WHERE (_table_suffix BETWEEN '0101' AND '0331')
 group by month),
-number_addtocart_tb as(SELECT 
+number_addtocart_tb AS(SELECT 
        FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
-      ,sum(case when eCommerceAction.action_type = '3' then 1 else 0 end) as num_addtocart
+      ,sum(case when eCommerceAction.action_type = '3' then 1 else 0 end) AS num_addtocart
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
 UNNEST (hits) hits
 WHERE (_table_suffix BETWEEN '0101' AND '0331')
-group by month),
-num_purchase_tb as(SELECT 
+GROUP BY month),
+num_purchase_tb AS(
+SELECT 
        FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
       ,sum(case when eCommerceAction.action_type = '6' then 1 else 0 end) as num_purchase
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
 UNNEST (hits) hits,
 UNNEST (hits.product) product
-WHERE (_table_suffix BETWEEN '0101' AND '0331') and (product.productRevenue IS NOT NULL)
-group by month)
-SELECT pv.month
+WHERE (_table_suffix BETWEEN '0101' AND '0331') AND (product.productRevenue IS NOT NULL)
+GROUP BY month)
+SELECT
+       pv.month
       ,pv.num_product_view
       ,atc.num_addtocart
       ,pc.num_purchase
-      ,round(100.00*(atc.num_addtocart/pv.num_product_view),2) as add_to_cart_rate
-      ,round(100.00*(pc.num_purchase/pv.num_product_view),2) as purchase_rate
-from number_productviews_tb pv
-join number_addtocart_tb atc on pv.month=atc.month
-join num_purchase_tb pc on pc.month=pv.month
-order by month
+      ,round(100.00*(atc.num_addtocart/pv.num_product_view),2) AS add_to_cart_rate
+      ,round(100.00*(pc.num_purchase/pv.num_product_view),2) AS purchase_rate
+FROM number_productviews_tb pv
+JOIN number_addtocart_tb atc ON pv.month=atc.month
+JOIN num_purchase_tb pc ON pc.month=pv.month
+ORDER BY month
 ~~~~
 
 **RESULT**
@@ -383,4 +380,4 @@ order by month
 | 201702 | 21489            | 7360          | 2060         | 34.25            | 9.59          |
 | 201703 | 23549            | 8782          | 2977         | 37.29            | 12.64         |
 
-## 7. Conclusion
+##6. Conclusion
