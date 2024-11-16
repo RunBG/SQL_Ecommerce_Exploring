@@ -44,7 +44,8 @@ The eCommerce dataset is stored in a public Google BigQuery dataset. To access t
 More detail about schema: https://support.google.com/analytics/answer/3437719?hl=en
 ## 5. Data Processing & Exploratory Data Analysis
 ~~~~sql
-SELECT COUNT(fullVisitorId) row_num,
+SELECT
+      COUNT(fullVisitorId) row_num,
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
 ~~~~
 | row\_num |
@@ -53,11 +54,12 @@ FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
 
 **UNNEST hits and products**
 ~~~~sql
-SELECT date, 
-fullVisitorId,
-eCommerceAction.action_type,
-product.v2ProductName,
-product.productRevenue,
+SELECT
+      date, 
+      fullVisitorId,
+      eCommerceAction.action_type,
+      product.v2ProductName,
+      product.productRevenue,
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`,
 UNNEST(hits) AS hits,
 UNNEST(hits.product) as product
@@ -79,26 +81,29 @@ UNNEST(hits.product) as product
 ## 6. Ask questions and solve it
 **6.1 Calculate total visits, pageview, transaction, and revenue for Jan, Feb, and March 2017**
 ~~~~sql
-SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
-COUNT(totals.visits) AS visit,
-SUM(totals.pageviews) AS pageviews,
-SUM(totals.transactions) AS transactions
+SELECT
+      FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+      COUNT(totals.visits) AS visit,
+      SUM(totals.pageviews) AS pageviews,
+      SUM(totals.transactions) AS transactions
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
 WHERE _table_suffix BETWEEN '0101' AND '0131'
 GROUP BY month
 UNION ALL
-SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
-COUNT(totals.visits) AS visit,
-SUM(totals.pageviews) AS pageviews,
-SUM(totals.transactions) AS transactions
+SELECT
+      FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+      COUNT(totals.visits) AS visit,
+      SUM(totals.pageviews) AS pageviews,
+      SUM(totals.transactions) AS transactions
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
 WHERE _table_suffix BETWEEN '0201' AND '0229'
 GROUP BY month
 UNION ALL
-SELECT FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
-COUNT(totals.visits) AS visit,
-SUM(totals.pageviews) AS pageviews,
-SUM(totals.transactions) AS transactions
+SELECT
+      FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month,
+      COUNT(totals.visits) AS visit,
+      SUM(totals.pageviews) AS pageviews,
+      SUM(totals.transactions) AS transactions
 FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
 WHERE _table_suffix BETWEEN '0301' AND '0331'
 GROUP BY month
@@ -112,7 +117,8 @@ GROUP BY month
 
 **6.2 Bounce rate per traffic source in July 2017**
 ~~~~sql
-SELECT trafficSource.source AS source
+SELECT
+      trafficSource.source AS source
       ,sum(totals.visits) AS total_visits
       ,sum(totals.bounces) AS total_no_of_bounces
       ,ROUND(100.00*sum(totals.bounces)/sum(totals.visits),3) AS bounce_rate
