@@ -118,14 +118,13 @@ GROUP BY month
 **6.2 Bounce rate per traffic source in July 2017**
 ~~~~sql
 SELECT
-      trafficSource.source AS source
-      ,sum(totals.visits) AS total_visits
-      ,sum(totals.bounces) AS total_no_of_bounces
-      ,ROUND(100.00*sum(totals.bounces)/sum(totals.visits),3) AS bounce_rate
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
-WHERE _table_suffix BETWEEN '0701' AND '0731'
+    trafficSource.source AS source,
+    SUM(totals.visits) AS total_visits,
+    SUM(totals.Bounces) AS total_no_of_bounces,
+    (SUM(totals.Bounces)/SUM(totals.visits))* 100.00 AS bounce_rate
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
 GROUP BY source
-ORDER BY total_visits desc
+ORDER BY total_visits DESC;
 ~~~~
 **RESULT**
 | Source                      | Total visits | Total no of bounces | Bounce rate |
@@ -156,79 +155,232 @@ ORDER BY total_visits desc
 | dealspotr.com               | 26           | 12                  | 46.154      |
 | productforums.google.com    | 25           | 21                  | 84          |
 | support.google.com          | 24           | 16                  | 66.667      |
-| ask                         | 24           | 16                  | 66.667      |
-| int.search.tb.ask.com       | 23           | 17                  | 73.913      |
-| optimize.google.com         | 21           | 10                  | 47.619      |
-| docs.google.com             | 20           | 8                   | 40          |
-| lm.facebook.com             | 18           | 9                   | 50          |
-| l.messenger.com             | 17           | 6                   | 35.294      |
-| adwords.google.com          | 16           | 7                   | 43.75       |
-| duckduckgo.com              | 16           | 14                  | 87.5        |
-| google.co.uk                | 15           | 7                   | 46.667      |
-| sashihara.jp                | 14           | 8                   | 57.143      |
-| lunametrics.com             | 13           | 8                   | 61.538      |
-| search.mysearch.com         | 12           | 11                  | 91.667      |
-| outlook.live.com            | 10           | 7                   | 70          |
-| tw.search.yahoo.com         | 10           | 8                   | 80          |
-| phandroid.com               | 9            | 7                   | 77.778      |
-| connect.googleforwork.com   | 8            | 5                   | 62.5        |
-| plus.google.com             | 8            | 2                   | 25          |
-| m.yz.sm.cn                  | 7            | 5                   | 71.429      |
-| google.co.in                | 6            | 3                   | 50          |
-| search.xfinity.com          | 6            | 6                   | 100         |
-| google.ru                   | 5            | 1                   | 20          |
-| s0.2mdn.net                 | 5            | 3                   | 60          |
-| hangouts.google.com         | 5            | 1                   | 20          |
-| online-metrics.com          | 5            | 2                   | 40          |
-| m.sogou.com                 | 4            | 3                   | 75          |
-| away.vk.com                 | 4            | 3                   | 75          |
-| in.search.yahoo.com         | 4            | 2                   | 50          |
-| googleads.g.doubleclick.net | 4            | 1                   | 25          |
-| getpocket.com               | 3            |                     |             |
-| siliconvalley.about.com     | 3            | 2                   | 66.667      |
-| m.baidu.com                 | 3            | 2                   | 66.667      |
-| google.it                   | 2            | 1                   | 50          |
-| google.co.th                | 2            | 1                   | 50          |
-| wap.sogou.com               | 2            | 2                   | 100         |
-| msn.com                     | 2            | 1                   | 50          |
-| calendar.google.com         | 2            | 1                   | 50          |
-| amp.reddit.com              | 2            | 1                   | 50          |
-| uk.search.yahoo.com         | 2            | 1                   | 50          |
-| search.1and1.com            | 2            | 2                   | 100         |
-| google.cl                   | 2            | 1                   | 50          |
-| moodle.aurora.edu           | 2            | 2                   | 100         |
-| au.search.yahoo.com         | 2            | 2                   | 100         |
-| m.sp.sm.cn                  | 2            | 2                   | 100         |
-| plus.url.google.com         | 2            |                     |             |
-| myactivity.google.com       | 2            | 1                   | 50          |
-| github.com                  | 2            | 2                   | 100         |
-| centrum.cz                  | 2            | 2                   | 100         |
-| google.nl                   | 1            |                     |             |
-| google.es                   | 1            | 1                   | 100         |
-| kidrex.org                  | 1            | 1                   | 100         |
-| newclasses.nyu.edu          | 1            |                     |             |
-| google.ca                   | 1            |                     |             |
-| kik.com                     | 1            | 1                   | 100         |
-| gophergala.com              | 1            | 1                   | 100         |
-| aol                         | 1            |                     |             |
-| earth.google.com            | 1            |                     |             |
-| malaysia.search.yahoo.com   | 1            | 1                   | 100         |
-| google.com.br               | 1            |                     |             |
-| suche.t-online.de           | 1            | 1                   | 100         |
-| google.bg                   | 1            | 1                   | 100         |
-| news.ycombinator.com        | 1            | 1                   | 100         |
-| online.fullsail.edu         | 1            | 1                   | 100         |
-| it.pinterest.com            | 1            | 1                   | 100         |
-| arstechnica.com             | 1            |                     |             |
-| es.search.yahoo.com         | 1            | 1                   | 100         |
-| web.facebook.com            | 1            | 1                   | 100         |
-| ph.search.yahoo.com         | 1            |                     |             |
-| web.mail.comcast.net        | 1            | 1                   | 100         |
-| search.tb.ask.com           | 1            |                     |             |
-| images.google.com.au        | 1            | 1                   | 100         |
-| mx.search.yahoo.com         | 1            | 1                   | 100         |
+| ...                         | ...          | ...                 | ...         |
+
+
+**6.3 Revenue by traffic source by week, by month in June 2017**
+
+~~~~sql
+WITH 
+month_data AS(
+  SELECT
+    "Month" AS time_type,
+    format_date("%Y%m", parse_date("%Y%m%d", date)) AS month,
+    trafficSource.source AS source,
+    SUM(p.productRevenue)/1000000 AS revenue
+  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
+    unnest(hits) hits,
+    unnest(product) p
+  WHERE p.productRevenue IS NOT NULL
+  GROUP BY 1,2,3
+  ORDER BY revenue DESC
+),
+
+week_data AS(
+  SELECT
+    "Week" AS time_type,
+    format_date("%Y%W", parse_date("%Y%m%d", date)) AS week,
+    trafficSource.source AS source,
+    SUM(p.productRevenue)/1000000 AS revenue
+  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
+    unnest(hits) hits,
+    unnest(product) p
+  WHERE p.productRevenue IS NOT NULL
+  GROUP BY 1,2,3
+  ORDER BY revenue DESC
+)
+
+SELECT * FROM month_data
+UNION ALL
+SELECT * FROM week_data
+ORDER BY source, time_type
+~~~~
+**RESULT**
+
+| time_type | month  | source                                    | revenue       |
+| --------- | ------ | ----------------------------------------- | ------------- |
+| Month     | 201706 | (direct)                                  | 97,333619695 |
+| Week      | 201724 | (direct)                                  | 30,908909927 |
+| Week      | 201722 | (direct)                                  | 6,888899975  |
+| Week      | 201723 | (direct)                                  | 17,325679919 |
+| Week      | 201726 | (direct)                                  | 14,91480995  |
+| Week      | 201725 | (direct)                                  | 27,295319924 |
+| Month     | 201706 | bing                                      | 13.98         |
+| Week      | 201724 | bing                                      | 13.98         |
+| Month     | 201706 | chat.google.com                           | 74.03         |
+| Week      | 201723 | chat.google.com                           | 74.03         |
+| ...       | ...    | ...                                       | ...           |
 
 
 
+**6.4 Average number of pageviews by purchaser type (purchasers vs non-purchasers) in June, July 2017**
+~~~~sql
+-- Count pageviews and number of purchaser 2017
+WITH
+count_pageview_purchaser AS(
+SELECT 
+      FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+      ,SUM(totals.pageviews) total_pageviews
+      ,COUNT(distinct fullVisitorId) total_user
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits,
+UNNEST (hits.product) product
+WHERE (_table_suffix BETWEEN '0601' AND '0731') AND (totals.transactions >= 1 AND product.productRevenue IS NOT NULL)
+GROUP BY month),
+count_pageview_non_purchaser AS
+-- Count pageviews and number of non-purchaser
+(SELECT 
+      FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+      ,SUM(totals.pageviews) total_pageviews
+      ,COUNT(DISTINCT fullVisitorId) total_user
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits,
+UNNEST (hits.product) product
+WHERE (_table_suffix BETWEEN '0601' AND '0731') AND (totals.transactions IS NULL AND product.productRevenue IS NULL)
+GROUP BY month)
+SELECT
+      p.month
+      ,p.total_pageviews/p.total_user as avg_pageviews_purchase
+      ,np.total_pageviews/np.total_user as avg_pageviews_non_purchase
+FROM count_pageview_purchaser p
+INNER JOIN count_pageview_non_purchaser np
+USING(MONTH)
+ORDER BY p.month
+~~~~
+
+**RESULT**
+
+| month  | avg_pageviews_purchase | avg_pageviews_non_purchase |
+| ------ | ---------------------- | -------------------------- |
+| 201706 | 94.02050113895217      | 316.86558846341671         |
+| 201707 | 124.23755186721992     | 334.05655979568053         |
+
+**6.5 Average amount of money spent per session. Only include purchaser data in July 2017**
+~~~~sql
+WITH count_transaction_per_user AS(
+  SELECT
+       FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS Month
+      ,COUNT(DISTINCT fullVisitorId) AS count_user
+      ,SUM(totals.transactions) AS count_transactions
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits,
+UNNEST (hits.product) product
+WHERE (_table_suffix BETWEEN '0701' AND '0731') AND (totals.transactions >=1 AND product.productRevenue IS NOT NULL)
+GROUP BY Month)
+SELECT
+      MONTH 
+      ,ROUND(count_transactions/count_user,9) AS Avg_total_transactions_per_user
+FROM count_transaction_per_user
+~~~~
+**RESULT**
+
+| MONTH  | Avg_total_transactions_per_user |
+| ------ | ------------------------------- |
+| 201707 | 4.163900415                     |
+
+**6.6 Average amount of money spent per session. Only include purchaser data in July 2017**
+
+~~~~sql
+WITH cal_total_revenue AS(
+  SELECT 
+        FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+        ,sum(product.productRevenue) AS total_revenue
+        ,sum(totals.visits) AS total_visit
+  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+  UNNEST (hits) hits,
+  UNNEST (hits.product) product
+  WHERE (_table_suffix BETWEEN '0701' AND '0731') AND (totals.transactions IS NOT NULL AND product.productRevenue IS NOT NULL)
+  group by month
+)
+SELECT month,
+        ROUND((total_revenue/total_visit)/1000000,2) AS avg_spend_per_session 
+FROM cal_total_revenue
+~~~~
+**RESULT**
+
+| Month  | avg_revenue_by_user_per_visit |
+| ------ | ----------------------------- |
+| 201707 | 43.85                         |
+
+**6.7 Other products purchased by customers who purchased product "YouTube Men's Vintage Henley" in July 2017. Output should show product name and the quantity was ordered.**
+
+~~~~sql
+SELECT 
+      product.v2ProductName
+      ,SUM(product.productQuantity) AS quantity
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST(hits) hits,
+UNNEST(hits.product) product
+WHERE (_table_suffix BETWEEN '0701' AND '0731') AND (product.v2ProductName != "YouTube Men's Vintage Henley") AND (product.productRevenue IS NOT NULL) AND (fullVisitorId IN(
+      SELECT 
+            fullVisitorId 
+      FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+      UNNEST(hits) hits,
+      UNNEST(hits.product) product
+      WHERE (_table_suffix BETWEEN '0701' AND '0731') AND (product.v2ProductName = "YouTube Men's Vintage Henley") AND (product.productRevenue IS NOT NULL)))
+GROUP BY product.v2ProductName
+ORDER BY quantity DESC
+~~~~
+
+**RESULT**
+
+| v2ProductName                                    | quantity |
+| ------------------------------------------------ | -------- |
+| Google Sunglasses                                | 20       |
+| Google Women's Vintage Hero Tee Black            | 7        |
+| SPF-15 Slim & Slender Lip Balm                   | 6        |
+| Google Women's Short Sleeve Hero Tee Red Heather | 4        |
+| Google Men's Short Sleeve Badge Tee Charcoal     | 3        |
+| YouTube Men's Fleece Hoodie Black                | 3        |
+| Android Wool Heather Cap Heather/Black           | 2        |
+| Crunch Noise Dog Toy                             | 2        |
+| Red Shine 15 oz Mug                              | 2        |
+| ...                                              | ...      |
+
+**6.8 Calculate cohort map from product view to addtocart to purchase in Jan, Feb and March 2017. For example, 100% product view then 40% add_to_cart and 10% purchase.
+Add_to_cart_rate = number product  add to cart/number product view. Purchase_rate = number product purchase/number product view. The output should be calculated in product level.**
+
+~~~~sql
+WITH number_productviews_tb as(SELECT 
+       FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+      ,sum(case when eCommerceAction.action_type = '2' then 1 else 0 end) as num_product_view
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits
+WHERE (_table_suffix BETWEEN '0101' AND '0331')
+group by month),
+number_addtocart_tb as(SELECT 
+       FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+      ,sum(case when eCommerceAction.action_type = '3' then 1 else 0 end) as num_addtocart
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits
+WHERE (_table_suffix BETWEEN '0101' AND '0331')
+group by month),
+num_purchase_tb as(SELECT 
+       FORMAT_TIMESTAMP('%Y%m', TIMESTAMP(PARSE_DATE('%Y%m%d', DATE))) AS month
+      ,sum(case when eCommerceAction.action_type = '6' then 1 else 0 end) as num_purchase
+FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
+UNNEST (hits) hits,
+UNNEST (hits.product) product
+WHERE (_table_suffix BETWEEN '0101' AND '0331') and (product.productRevenue IS NOT NULL)
+group by month)
+SELECT pv.month
+      ,pv.num_product_view
+      ,atc.num_addtocart
+      ,pc.num_purchase
+      ,round(100.00*(atc.num_addtocart/pv.num_product_view),2) as add_to_cart_rate
+      ,round(100.00*(pc.num_purchase/pv.num_product_view),2) as purchase_rate
+from number_productviews_tb pv
+join number_addtocart_tb atc on pv.month=atc.month
+join num_purchase_tb pc on pc.month=pv.month
+order by month
+~~~~
+
+**RESULT**
+
+| month  | num_product_view | num_addtocart | num_purchase | add_to_cart_rate | purchase_rate |
+| ------ | ---------------- | ------------- | ------------ | ---------------- | ------------- |
+| 201701 | 25787            | 7342          | 2143         | 28.47            | 8.31          |
+| 201702 | 21489            | 7360          | 2060         | 34.25            | 9.59          |
+| 201703 | 23549            | 8782          | 2977         | 37.29            | 12.64         |
 
 ## 7. Conclusion
