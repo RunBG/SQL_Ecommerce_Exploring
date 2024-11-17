@@ -192,12 +192,12 @@ ORDER BY source, time_type
 
 | time_type | month  | source                                    | revenue       |
 | --------- | ------ | ----------------------------------------- | ------------- |
-| Month     | 201706 | (direct)                                  | 97,333619695 |
-| Week      | 201724 | (direct)                                  | 30,908909927 |
-| Week      | 201722 | (direct)                                  | 6,888899975  |
-| Week      | 201723 | (direct)                                  | 17,325679919 |
-| Week      | 201726 | (direct)                                  | 14,91480995  |
-| Week      | 201725 | (direct)                                  | 27,295319924 |
+| Month     | 201706 | (direct)                                  | 97333.619695 |
+| Week      | 201724 | (direct)                                  | 30908.909927 |
+| Week      | 201722 | (direct)                                  | 6888.899975  |
+| Week      | 201723 | (direct)                                  | 17325.679919 |
+| Week      | 201726 | (direct)                                  | 14914.80995  |
+| Week      | 201725 | (direct)                                  | 27295.319924 |
 | Month     | 201706 | bing                                      | 13.98         |
 | Week      | 201724 | bing                                      | 13.98         |
 | Month     | 201706 | chat.google.com                           | 74.03         |
