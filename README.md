@@ -382,3 +382,11 @@ ORDER BY month
 
 
 ## 6. Conclusion
+
+- This is the author's opportunity to learn about the marketing industry and the customer journey through this e-commerce dataset
+
+- In analyzing the e-commerce dataset using BigQuery, the author understands customer behavior through the bounce rate, transaction, revenue, visit, and purchase.
+  
+- The author gained insights into which marketing channels drive traffic and sales by examining referral sources. Investing resources in effective channels and optimizing underperforming ones can improve marketing ROI.
+
+- In conclusion, exploring the e-commerce dataset on BigQuery unearthed a wealth of insights critical for strategic decision-making to help the business can optimize operations, enhance customer experiences, and drive revenue.
